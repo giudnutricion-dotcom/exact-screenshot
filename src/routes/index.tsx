@@ -176,7 +176,7 @@ function LeadForm() {
               <legend className="text-lg font-semibold">{QUESTIONS[step].label}</legend>
               <div className="mt-4 space-y-3">
                 {QUESTIONS[step].options.map((opt) => {
-                  const q = QUESTIONS[step];
+                  const q = QUESTIONS[step]!;
                   const selected = answers[q.key] === opt;
                   return (
                     <label key={opt} className={`flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-3.5 transition ${selected ? "border-primary bg-accent" : "hover:border-primary/40"}`}>
