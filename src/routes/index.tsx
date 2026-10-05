@@ -173,9 +173,9 @@ function LeadForm() {
 
           {step < QUESTIONS.length ? (
             <fieldset className="mt-6">
-              <legend className="text-lg font-semibold">{QUESTIONS[step].label}</legend>
+              <legend className="text-lg font-semibold">{QUESTIONS[step]!.label}</legend>
               <div className="mt-4 space-y-3">
-                {QUESTIONS[step].options.map((opt) => {
+                {QUESTIONS[step]!.options.map((opt) => {
                   const q = QUESTIONS[step]!;
                   const selected = answers[q.key] === opt;
                   return (
