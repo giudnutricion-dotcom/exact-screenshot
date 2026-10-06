@@ -18,6 +18,6 @@ export const submitLead = createServerFn({ method: "POST" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { website: _hp, ...row } = data;
     const { error } = await supabaseAdmin.from("audit_leads").insert(row);
-    if (error) throw new Error("Could not save your request. Please try again.");
-    return { ok: true };
+    const isQualified = row.revenue !== "Under $500K ARR" && row.timeline !== "Just researching";
+    return { ok: true, qualified: isQualified };
   });

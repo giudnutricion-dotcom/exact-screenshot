@@ -134,6 +134,7 @@ function LeadForm() {
   const [contact, setContact] = useState({ name: "", email: "", phone: "" });
   const [answers, setAnswers] = useState<Answers>({ revenue: "", team_size: "", bottleneck: "", timeline: "" });
   const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
+  const [isQualified, setIsQualified] = useState(false);
   const [err, setErr] = useState("");
   const total = QUESTIONS.length + 1;
 
@@ -144,7 +145,8 @@ function LeadForm() {
     if (!contactValid) { setErr("Please complete all fields with a valid email."); return; }
     setStatus("loading"); setErr("");
     try {
-      await submit({ data: { ...contact, ...answers } });
+      const res = await submit({ data: { ...contact, ...answers } });
+      setIsQualified(res?.qualified ?? (answers.revenue !== "Under $500K ARR" && answers.timeline !== "Just researching"));
       setStatus("done");
     } catch (e) {
       setStatus("error"); setErr(e instanceof Error ? e.message : "Something went wrong.");
@@ -158,8 +160,57 @@ function LeadForm() {
       {status === "done" ? (
         <div className="text-center">
           <CheckCircle2 className="mx-auto h-14 w-14 text-primary" />
-          <h2 className="mt-4 text-2xl font-bold">You're in.</h2>
-          <p className="mt-2 text-muted-foreground">Thanks, {contact.name.split(" ")[0]}. Your request for The 10-Minute Bottleneck Audit has been received.</p>
+          {isQualified ? (
+            <div className="mt-4 space-y-4">
+              <span className="inline-block rounded-full border border-primary/40 bg-accent px-3 py-1 text-xs font-semibold tracking-wider text-accent-foreground uppercase">
+                Step 2 of 2: Strategy Call Reserved
+              </span>
+              <h2 className="text-2xl font-bold md:text-3xl">Audit Dispatched + Lock In Your 15-Min Strategy Session</h2>
+              <p className="text-muted-foreground">
+                Thanks, {contact.name.split(" ")[0]}. We've sent <strong>The 10-Minute Bottleneck Audit</strong> to {contact.email}.
+              </p>
+              <div className="rounded-xl border bg-accent/40 p-5 text-left">
+                <p className="text-sm leading-relaxed text-foreground/90">
+                  Because your business is operating at <strong>{answers.revenue}</strong>, you qualify for a 1-on-1 operational audit with our placement team to map the exact 15–20 hours of daily friction you can offload this month.
+                </p>
+              </div>
+              <div className="space-y-3 pt-2">
+                <a
+                  href="https://calendly.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${CTA_BTN} w-full`}
+                >
+                  Schedule Your 15-Min Strategy Call <ArrowRight className="h-5 w-5" />
+                </a>
+                <a
+                  href="https://docs.google.com/document/d/1Hd5MjJr7MtvgzcxJo9JyeO9HTrsipbSVjrudn6ifh_Q/edit?usp=sharing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-sm font-medium text-muted-foreground underline-offset-4 hover:underline"
+                >
+                  Or open your Google Doc Audit directly →
+                </a>
+              </div>
+            </div>
+          ) : (
+            <div className="mt-4 space-y-4">
+              <h2 className="text-2xl font-bold md:text-3xl">Your Audit Is Ready!</h2>
+              <p className="text-muted-foreground">
+                Thanks, {contact.name.split(" ")[0]}. Your copy of <strong>The 10-Minute Bottleneck Audit</strong> is available immediately below:
+              </p>
+              <div className="pt-2">
+                <a
+                  href="https://docs.google.com/document/d/1Hd5MjJr7MtvgzcxJo9JyeO9HTrsipbSVjrudn6ifh_Q/edit?usp=sharing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${CTA_BTN} w-full`}
+                >
+                  Open The 10-Minute Bottleneck Audit (Google Doc) <ArrowRight className="h-5 w-5" />
+                </a>
+              </div>
+            </div>
+          )}
         </div>
       ) : (
         <>
