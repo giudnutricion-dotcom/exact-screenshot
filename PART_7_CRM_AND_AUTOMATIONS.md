@@ -200,10 +200,10 @@ flowchart TD
 
 ---
 
-## 4. BOOKING WORKFLOW SPECIFICATION (CALENDLY / BOOK-CAL-01)
+## 4. BOOKING WORKFLOW SPECIFICATION (CALENDLY: https://calendly.com/giudnutricion/30min)
 
 ### Trigger
-* **Event:** Calendly appointment scheduled for *15-Min Pareto Talent Strategy Call*.
+* **Event:** Calendly appointment scheduled via `https://calendly.com/giudnutricion/30min`.
 * **Status Shift:** Contact tag `status:call-booked` added; Stage shifted to `Call Booked` in CRM.
 * **Suppression:** Automatically unsubscribes contact from all Qualified Follow-up campaigns.
 

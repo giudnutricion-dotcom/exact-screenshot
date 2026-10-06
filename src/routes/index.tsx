@@ -176,7 +176,7 @@ function LeadForm() {
               </div>
               <div className="space-y-3 pt-2">
                 <a
-                  href="https://calendly.com"
+                  href={`https://calendly.com/giudnutricion/30min?name=${encodeURIComponent(contact.name)}&email=${encodeURIComponent(contact.email)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`${CTA_BTN} w-full`}
