@@ -6,6 +6,7 @@
 > **Owner / Author:** Giuliana Denise Acevedo Struciat (Growth & Operations Lead)  
 > **Target Deadline:** October 7, 2026  
 > **System Alignment:** ClickUp Workspace (`CLICKUP-OPS-01`), Lovable Landing Page, Calendly (`BOOK-CAL-01`), Google Docs (`TY-PDF-01`), CRM Automation Engine  
+> **Google Doc Master:** [Lead Magnet Launch SOP (SOP-OPS-001)](https://docs.google.com/document/d/12_WIYYqbJB0uh2QV-QpMmdcDKrPQyVxE4G9-llODpLw/edit?usp=sharing)  
 
 ---
 
