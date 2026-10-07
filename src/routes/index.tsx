@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { ArrowRight, Check, CheckCircle2, Grid2x2, Box, TrafficCone, Loader2, Shield } from "lucide-react";
@@ -702,6 +702,7 @@ type Answers = Record<(typeof QUESTIONS)[number]["key"], string>;
 
 function LeadForm() {
   const submit = useServerFn(submitLead);
+  const navigate = useNavigate();
   const [step, setStep]       = useState(0);
   const [contact, setContact] = useState({ name: "", email: "", phone: "" });
   const [answers, setAnswers] = useState<Answers>({ revenue: "", team_size: "", bottleneck: "", timeline: "" });
@@ -721,9 +722,32 @@ function LeadForm() {
     setStatus("loading"); setErr("");
     try {
       const res = await submit({ data: { ...contact, ...answers } });
-      setIsQualified(
-        res?.qualified ?? (answers.revenue !== "Under $500K ARR" && answers.timeline !== "Just researching")
-      );
+      const qualified =
+        res?.qualified ?? (answers.revenue !== "Under $500K ARR" && answers.timeline !== "Just researching");
+      setIsQualified(qualified);
+
+      if (!qualified) {
+        // Automatically route unqualified leads to the dedicated Thank You Page
+        const trimmedName = contact.name.trim();
+        const trimmedEmail = contact.email.trim();
+        try {
+          await navigate({
+            to: "/thank-you",
+            search: {
+              name: trimmedName || undefined,
+              email: trimmedEmail || undefined,
+            },
+          });
+        } catch {
+          const params = new URLSearchParams();
+          if (trimmedName) params.set("name", trimmedName);
+          if (trimmedEmail) params.set("email", trimmedEmail);
+          const qs = params.toString();
+          window.location.href = `/thank-you${qs ? `?${qs}` : ""}`;
+        }
+        return;
+      }
+
       setStatus("done");
     } catch (e) {
       setStatus("error");
@@ -813,6 +837,17 @@ function LeadForm() {
               </div>
             ) : (
               <div className="mt-6 space-y-5">
+                <span
+                  className="inline-block rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-widest"
+                  style={{
+                    background: "var(--green-muted)",
+                    border: "1px solid rgba(16,185,129,.3)",
+                    color: "var(--green-light)",
+                    fontFamily: "var(--font-display)",
+                  }}
+                >
+                  Diagnostic Completed · Free Access
+                </span>
                 <h2
                   className="text-2xl font-extrabold md:text-3xl"
                   style={{ fontFamily: "var(--font-display)", color: "var(--text-primary)" }}
@@ -820,19 +855,32 @@ function LeadForm() {
                   Your Audit Is Ready!
                 </h2>
                 <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
-                  Thanks, {contact.name.split(" ")[0]}. Your copy of{" "}
+                  Thanks, {contact.name.split(" ")[0] || "Founder"}. Your copy of{" "}
                   <strong style={{ color: "var(--text-primary)" }}>The 10-Minute Bottleneck Audit</strong> is
-                  available immediately below:
+                  ready.
                 </p>
-                <a
-                  href="https://docs.google.com/document/d/1Hd5MjJr7MtvgzcxJo9JyeO9HTrsipbSVjrudn6ifh_Q/edit?usp=sharing"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${CTA_BTN} w-full`}
-                  style={CTA_BTN_STYLE}
-                >
-                  Open The 10-Minute Bottleneck Audit <ArrowRight className="h-5 w-5" />
-                </a>
+                <div className="space-y-3 pt-1">
+                  <Link
+                    to="/thank-you"
+                    search={{
+                      name: contact.name.trim() || undefined,
+                      email: contact.email.trim() || undefined,
+                    }}
+                    className={`${CTA_BTN} w-full`}
+                    style={CTA_BTN_STYLE}
+                  >
+                    View Your Audit &amp; Action Guide <ArrowRight className="h-5 w-5" />
+                  </Link>
+                  <a
+                    href="https://docs.google.com/document/d/1Hd5MjJr7MtvgzcxJo9JyeO9HTrsipbSVjrudn6ifh_Q/edit?usp=sharing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block text-sm font-medium underline-offset-4 hover:underline"
+                    style={{ color: "var(--text-muted)" }}
+                  >
+                    Or open Google Doc directly →
+                  </a>
+                </div>
               </div>
             )}
           </div>
