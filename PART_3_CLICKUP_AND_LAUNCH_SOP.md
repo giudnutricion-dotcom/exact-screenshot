@@ -27,7 +27,7 @@ This procedure governs:
 
 ## 2. CLICKUP PROJECT WORK BREAKDOWN STRUCTURE (WBS)
 
-All execution items are scheduled backwards from the **October 7 hard launch deadline** inside ClickUp Space: `Pareto Launch Engine` (List: `CLICKUP-OPS-01`).
+All execution items are scheduled backwards from the **October 7 hard launch deadline** inside ClickUp Space: `Pareto Launch Engine` (List: `CLICKUP-OPS-01` — [View Live ClickUp List](https://sharing.clickup.com/90171581493/l/h/6-901717574004-1/2b12e30ef936048)).
 
 ```
 [Oct 1 - Oct 2] Milestone 1: Competitor Teardown & ICP Synthesis ──────► DONE
