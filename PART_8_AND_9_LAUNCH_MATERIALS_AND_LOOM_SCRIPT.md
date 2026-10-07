@@ -107,7 +107,7 @@ To ensure 100% cohesion across Ads, Landing Pages, Email Sequences, and the Lead
 
 ---
 
-# PART 9: 2-MINUTE LOOM PRESENTATION BLUEPRINT & SCRIPT
+# PART 9: 2-MINUTE LOOM PRESENTATION BLUEPRINT
 
 ## 1. Setup & Screen Recording Tab Flow
 Have these browser tabs open in order before hitting record on Loom:
