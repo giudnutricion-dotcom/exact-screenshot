@@ -109,6 +109,9 @@ To ensure 100% cohesion across Ads, Landing Pages, Email Sequences, and the Lead
 
 # PART 9: 2-MINUTE LOOM PRESENTATION BLUEPRINT
 
+> **Live Video Walkthrough:** [Watch 2-Minute Presentation on Loom](https://www.loom.com/share/0fd0922b3f874a2ab4a11df334aedc0d)  
+> **Status:** Recorded & Live  
+
 ## 1. Setup & Screen Recording Tab Flow
 Have these browser tabs open in order before hitting record on Loom:
 1. **Tab 1:** Ad Creatives (Show the 5 distinct visual concepts and angles).

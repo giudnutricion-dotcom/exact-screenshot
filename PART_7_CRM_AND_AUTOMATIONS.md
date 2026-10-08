@@ -2,7 +2,8 @@
 **Brand:** Pareto Talent  
 **Lead Magnet:** The 10-Minute Bottleneck Audit  
 **Backend Offer:** Dedicated "Right Hand" Executive Assistant Placement  
-**Target ICP:** 7- and 8-figure Founders ($500K–$5M+ ARR)
+**Target ICP:** 7- and 8-figure Founders ($500K–$5M+ ARR)  
+**Google Doc Master:** [CRM Pipeline & Email Nurture Suite](https://docs.google.com/document/d/1MfC1d-A0J7ydGFc62SkKy-nhv0DXtHm7eRpWVAevBGg/edit?usp=sharing)  
 
 ---
 
